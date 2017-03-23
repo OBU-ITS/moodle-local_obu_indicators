@@ -30,8 +30,8 @@ if (!isloggedin() || isguestuser()) {
 
 $indicator_name = required_param('name', PARAM_TEXT);  // indicator required
 
-if (substr($indicator_name, 0, 14) == 'dyslexia_code_') {
-	$course_id = 'WELL.DYSLEX' . strtoupper(substr($indicator_name, 14));
+if ($indicator_name == 'dyslexia_indicator') {
+	$course_id = 'WELL.DYSLEX';
 	$role = $DB->get_record('role', array('shortname' => 'student'), 'id', MUST_EXIST);
 	$sql = 'SELECT c.id'
 		. ' FROM {user_enrolments} ue'
