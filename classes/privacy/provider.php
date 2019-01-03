@@ -16,13 +16,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Language strings
+ * OBU indicators - Privacy Subsystem implementation
  *
- * @package    local_obu_indicators
- * @copyright  2019, Oxford Brookes University {@link http://www.brookes.ac.uk/}
+ * @package    obu_indicators
+ * @category   local
+ * @author     Peter Welham
+ * @copyright  2019, Oxford Brookes University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['privacy:metadata'] = 'The OBU Indicators plugin does not store any personal data.';
+namespace local_obu_indicators\privacy;
 
-$string['pluginname'] = 'OBU Indicators';
+defined('MOODLE_INTERNAL') || die();
+
+// Privacy Subsystem implementing null_provider
+class provider implements \core_privacy\local\metadata\null_provider {
+
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function get_reason() : string {
+        return 'privacy:metadata';
+    }
+}
