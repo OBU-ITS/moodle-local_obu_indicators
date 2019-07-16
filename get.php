@@ -18,7 +18,7 @@
 /**
  *
  * @package    local_obu_indicators
- * @copyright  2017, Oxford Brookes University {@link http://www.brookes.ac.uk/}
+ * @copyright  2019, Oxford Brookes University {@link http://www.brookes.ac.uk/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -40,7 +40,7 @@ if ($indicator_name == 'dyslexia_indicator') {
 		. ' JOIN {role_assignments} ra ON ra.contextid = ct.id'
 		. ' JOIN {course} c ON c.id = e.courseid'
 		. ' WHERE ue.userid = ?'
-//			. ' AND e.enrol = "databaseextended"'
+//			. ' AND (e.enrol = "database" OR e.enrol = "databaseextended" OR e.enrol = "ethos" OR e.enrol = "lmb")'
 			. ' AND ct.contextlevel = 50'
 			. ' AND ra.userid = ue.userid'
 			. ' AND ra.roleid = ?'
