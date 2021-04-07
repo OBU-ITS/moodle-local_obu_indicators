@@ -52,3 +52,28 @@ if ($indicator_name == 'dyslexia_indicator') {
 		echo 'Y';
 	}
 }
+
+$ext_inds = array('CWON','CWTW','CWTH','CWFO','CWFI');
+
+if 	(in_array($indicator_name,$ext_inds)) { 
+	$course_id = 'WELL.' . $indicator_name;
+	$role = $DB->get_record('role', array('shortname' => 'student'), 'id', MUST_EXIST);
+	$sql = 'SELECT c.id'
+		. ' FROM {user_enrolments} ue'
+		. ' JOIN {enrol} e ON e.id = ue.enrolid'
+		. ' JOIN {context} ct ON ct.instanceid = e.courseid'
+		. ' JOIN {role_assignments} ra ON ra.contextid = ct.id'
+		. ' JOIN {course} c ON c.id = e.courseid'
+		. ' WHERE ue.userid = ?'
+//			. ' AND (e.enrol = "database" OR e.enrol = "databaseextended" OR e.enrol = "ethos" OR e.enrol = "lmb")'
+			. ' AND ct.contextlevel = 50'
+			. ' AND ra.userid = ue.userid'
+			. ' AND ra.roleid = ?'
+			. ' AND c.idnumber = ?';
+	$db_ret = $DB->get_records_sql($sql, array($USER->id, $role->id, $course_id));
+	if (empty($db_ret)) {
+		echo 'N';
+	} else {
+		echo $indicator_name;
+	}
+}
